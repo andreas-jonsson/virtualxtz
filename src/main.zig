@@ -40,8 +40,8 @@ pub fn main() !void {
 
     const window = c.SDL_CreateWindow(
         "VirtualXT",
-        c.SDL_WINDOWPOS_UNDEFINED_MASK,
-        c.SDL_WINDOWPOS_UNDEFINED_MASK,
+        c.SDL_WINDOWPOS_UNDEFINED,
+        c.SDL_WINDOWPOS_UNDEFINED,
         640,
         480,
         c.SDL_WINDOW_RESIZABLE,
