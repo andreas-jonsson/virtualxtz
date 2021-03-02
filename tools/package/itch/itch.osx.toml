@@ -1,0 +1,7 @@
+[[actions]]
+name = "VirtualXT - FreeDOS"
+path = "VirtualXT.app"
+
+[[actions]]
+name = "manual"
+path = "VirtualXT.app/Contents/Resources/manual/index.md.html"

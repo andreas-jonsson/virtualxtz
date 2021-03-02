@@ -26,7 +26,7 @@ matrix:
       script:
         - zig build test
         - zig build
-        #- ./tools/package/itch/package.linux.sh
+        - ./tools/package/itch/package.linux.sh
 
       after_success:
         - docker run --rm --security-opt seccomp=unconfined -v $(pwd):$(pwd) -w $(pwd) kcov/kcov kcov kcov-out ./zig-cache/o/*/test
@@ -92,10 +92,11 @@ before_install:
 before_script:
   - zig version
 
-#deploy:
-#  provider: script
-#  skip_cleanup: true
-#  script: bash tools/package/itch/push.sh
-#  on:
-#    all_branches: true
-#    condition: $TRAVIS_BRANCH =~ ^(edge|release)$ && $TRAVIS_OS_NAME != osx
+deploy:
+  provider: script
+  skip_cleanup: true
+  script: bash tools/package/itch/push.sh
+  on:
+    all_branches: true
+    #condition: $TRAVIS_BRANCH =~ ^(edge|release)$ && $TRAVIS_OS_NAME != osx
+    condition: $TRAVIS_BRANCH == main && $TRAVIS_OS_NAME == linux
