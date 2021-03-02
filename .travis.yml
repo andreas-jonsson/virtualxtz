@@ -25,10 +25,9 @@ matrix:
         - zig version
 
       script:
+        - zig build test
         - zig build
         #- ./tools/package/itch/package.linux.sh
-
-        - zig build test
 
       after_success:
         - docker run --rm --security-opt seccomp=unconfined -v $(pwd):$(pwd) -w $(pwd) kcov/kcov kcov kcov-out ./zig-cache/o/*/test
@@ -38,7 +37,7 @@ matrix:
 
     - name: OSX
       os: osx
-      #osx_image: xcode12
+      osx_image: xcode12
 
       addons:
         homebrew:
