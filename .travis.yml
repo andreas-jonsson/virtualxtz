@@ -5,7 +5,7 @@ matrix:
 
     - name: Linux
       os: linux
-      dist: focal
+      #dist: focal
 
       addons:
         apt:
@@ -18,7 +18,7 @@ matrix:
         #- curl -L -o zig.tar.xz https://ziglang.org/download/${ZIG_VERSION}/zig-linux-x86_64-${ZIG_VERSION}.tar.xz && tar -xf zig.tar.xz
 
         #- export PATH=$PATH:${TRAVIS_BUILD_DIR}/zig-linux-x86_64-${ZIG_VERSION}
-        - sudo snap install zig --classic --beta
+        - sudo snap install zig --classic --edge
         - zig version
 
       script:
@@ -36,15 +36,15 @@ matrix:
           packages:
             - sdl2
             - rpl
-            - zig
+            #- zig
 
       install:
         - curl -L -o butler.zip https://broth.itch.ovh/butler/darwin-amd64/LATEST/archive/default && unzip butler.zip
-        #- curl -L -o zig.tar.xz https://ziglang.org/download/${ZIG_VERSION}/zig-macos-x86_64-${ZIG_VERSION}.tar.xz && tar -xf zig.tar.xz
+        - curl -L -o zig.tar.xz https://ziglang.org/download/${ZIG_VERSION}/zig-macos-x86_64-${ZIG_VERSION}.tar.xz && tar -xf zig.tar.xz
 
-        #- export PATH=$PATH:${TRAVIS_BUILD_DIR}/zig-macos-x86_64-${ZIG_VERSION}
+        - export PATH=$PATH:${TRAVIS_BUILD_DIR}/zig-macos-x86_64-${ZIG_VERSION}
 
-        - zig version
+        #- zig version
 
       script:
         - zig build
