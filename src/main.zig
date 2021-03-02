@@ -87,3 +87,7 @@ pub fn main() !void {
         std.time.sleep(16*1000000);
     }
 }
+
+test "Just a test" {
+    std.debug.print("Running a test!\n", .{});
+}
