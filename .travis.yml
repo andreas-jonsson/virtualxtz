@@ -64,7 +64,7 @@ matrix:
 
 ################ Common ################
 
-language: c
+language: generic
 
 env:
   - ZIG_VERSION=0.7.1
