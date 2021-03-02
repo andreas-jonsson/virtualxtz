@@ -18,8 +18,10 @@ matrix:
         - curl -L -o butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default && unzip butler.zip
         - curl -L -o zig.tar.xz https://ziglang.org/download/${ZIG_VERSION}/zig-linux-x86_64-${ZIG_VERSION}.tar.xz && tar -xf zig.tar.xz
 
+        - export PATH=$PATH:${TRAVIS_BUILD_DIR}/zig-linux-x86_64-${ZIG_VERSION}/zig
+
       script:
-        - ${TRAVIS_BUILD_DIR}/zig-linux-x86_64-${ZIG_VERSION}/zig build
+        - zig build
         #- ./tools/package/itch/package.linux.sh
 
     ################ OSX Build ################
@@ -38,8 +40,10 @@ matrix:
         - curl -L -o butler.zip https://broth.itch.ovh/butler/darwin-amd64/LATEST/archive/default && unzip butler.zip
         - curl -L -o zig.tar.xz https://ziglang.org/download/${ZIG_VERSION}/zig-macos-x86_64-${ZIG_VERSION}.tar.xz && tar -xf zig.tar.xz
 
+        - export PATH=$PATH:${TRAVIS_BUILD_DIR}/zig-macos-x86_64-${ZIG_VERSION}/zig
+
       script:
-        - ${TRAVIS_BUILD_DIR}/zig-linux-x86_64-${ZIG_VERSION}/zig build
+        - zig build
         #- ./tools/package/itch/package.osx.sh
 
     ################ Windows Build ################
@@ -52,8 +56,10 @@ matrix:
         - curl -L -o sdl.tar.gz https://www.libsdl.org/release/SDL2-devel-${SDL2_WINDOWS_VERSION}-VC.zip && 7z x sdl.zip
         - curl -L -o zig.zip https://ziglang.org/download/0.7.1/zig-windows-x86_64-0.7.1.zip && unzip zig.zip
 
+        - export PATH=$PATH:${TRAVIS_BUILD_DIR}/zig-windows-x86_64-${ZIG_VERSION}/zig
+
       script:
-        - ${TRAVIS_BUILD_DIR}/zig-windows-x86_64-${ZIG_VERSION}/zig build -Dwindows=true -Dsdl-path=${TRAVIS_BUILD_DIR}/SDL2-${SDL2_WINDOWS_VERSION}
+        - zig build -Dwindows=true -Dsdl-path=${TRAVIS_BUILD_DIR}/SDL2-${SDL2_WINDOWS_VERSION}
         #- ./tools/package/itch/package.bat
 
 ################ Common ################
