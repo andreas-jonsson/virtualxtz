@@ -2,7 +2,7 @@ const std = @import("std");
 const vxt = @import("vxt");
 
 const c = @cImport({
-    @cInclude("SDL2/SDL.h");
+    @cInclude("SDL.h");
 });
 
 const ErrorSet = error{SDLError};
