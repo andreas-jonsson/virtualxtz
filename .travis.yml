@@ -22,7 +22,6 @@ matrix:
 
         #- export PATH=$PATH:${TRAVIS_BUILD_DIR}/zig-linux-x86_64-${ZIG_VERSION}
         - sudo snap install zig --classic --edge
-        - zig version
 
       script:
         - zig build test
@@ -52,6 +51,7 @@ matrix:
         - export PATH=$PATH:${TRAVIS_BUILD_DIR}/zig-macos-x86_64-${ZIG_VERSION}
 
       script:
+        - zig build test
         - zig build
         #- ./tools/package/itch/package.osx.sh
 
@@ -66,9 +66,11 @@ matrix:
         - curl -L -o zig.zip https://ziglang.org/download/0.7.1/zig-windows-x86_64-0.7.1.zip && unzip zig.zip
 
         - export PATH=$PATH:${TRAVIS_BUILD_DIR}/zig-windows-x86_64-${ZIG_VERSION}
+        - export SDL_PATH="${TRAVIS_BUILD_DIR}/SDL2-${SDL2_WINDOWS_VERSION}"
 
       script:
-        - zig build -Dwindows=true -Dsdl-path="${TRAVIS_BUILD_DIR}/SDL2-${SDL2_WINDOWS_VERSION}"
+        - zig build test -Dwindows=true -Dsdl-path=${SDL_PATH}
+        - zig build -Dwindows=true -Dsdl-path=${SDL_PATH}
         #- ./tools/package/itch/package.bat
 
 ################ Common ################
@@ -85,14 +87,10 @@ notifications:
 
 before_install:
   - export PATH=$TRAVIS_BUILD_DIR:$PATH
-
-before_script:
   - export FULL_VERSION=${VXT_VERSION}.${TRAVIS_BUILD_ID}
 
-  #- go generate ./...
-  #- cd bios/pcxtbios/build && go run build.go && cd ${TRAVIS_BUILD_DIR}
-  #- go test -race -coverprofile coverage.txt -covermode atomic ./...
-  #- bash <(curl -s https://codecov.io/bash)
+before_script:
+  - zig version
 
 #deploy:
 #  provider: script
