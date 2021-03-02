@@ -39,6 +39,11 @@ pub fn build(b: *Builder) void {
     const run_step = b.step("run", "Run VirtualXT");
     run_step.dependOn(&run_cmd.step);
 
+    var tests = b.addTest("src/main.zig");
+    tests.setBuildMode(mode);
+    const test_step = b.step("test", "Run all tests");
+    test_step.dependOn(&tests.step);
+
     b.default_step.dependOn(&exe.step);
     b.installArtifact(exe);
 }

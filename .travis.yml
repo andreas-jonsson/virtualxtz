@@ -10,7 +10,6 @@ matrix:
       addons:
         apt:
           packages:
-            - xz-utils
             - libsdl2-dev
             - libpcap-dev
 
@@ -59,12 +58,12 @@ matrix:
         - export PATH=$PATH:${TRAVIS_BUILD_DIR}/zig-windows-x86_64-${ZIG_VERSION}
 
       script:
-        - zig build -Dwindows=true -Dsdl-path=${TRAVIS_BUILD_DIR}/SDL2-${SDL2_WINDOWS_VERSION}
+        - zig build -Dwindows=true -Dsdl-path="${TRAVIS_BUILD_DIR}/SDL2-${SDL2_WINDOWS_VERSION}"
         #- ./tools/package/itch/package.bat
 
 ################ Common ################
 
-language: generic
+language: minimal
 
 env:
   - ZIG_VERSION=0.7.1 SDL2_WINDOWS_VERSION=2.0.14 VXT_VERSION=0.6.1
