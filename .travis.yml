@@ -61,9 +61,7 @@ matrix:
 language: generic
 
 env:
-  - ZIG_VERSION=0.7.1
-  - SDL2_WINDOWS_VERSION=2.0.14
-  - VXT_VERSION=0.6.1
+  - ZIG_VERSION=0.7.1 SDL2_WINDOWS_VERSION=2.0.14 VXT_VERSION=0.6.1
 
 notifications:
   email:
