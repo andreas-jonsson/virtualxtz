@@ -5,7 +5,10 @@ matrix:
 
     - name: Linux
       os: linux
-      #dist: focal
+      dist: focal
+
+      services:
+        - docker
 
       addons:
         apt:
@@ -25,6 +28,12 @@ matrix:
         - zig build
         #- ./tools/package/itch/package.linux.sh
 
+        - zig build test
+
+      after_success:
+        - docker run --rm --security-opt seccomp=unconfined -v $(pwd):$(pwd) -w $(pwd) kcov/kcov kcov kcov-out ./zig-cache/o/*/test
+        - bash <(curl -s https://codecov.io/bash) -s kcov-out
+
     ################ OSX Build ################
 
     - name: OSX
@@ -36,15 +45,12 @@ matrix:
           packages:
             - sdl2
             - rpl
-            #- zig
 
       install:
         - curl -L -o butler.zip https://broth.itch.ovh/butler/darwin-amd64/LATEST/archive/default && unzip butler.zip
         - curl -L -o zig.tar.xz https://ziglang.org/download/${ZIG_VERSION}/zig-macos-x86_64-${ZIG_VERSION}.tar.xz && tar -xf zig.tar.xz
 
         - export PATH=$PATH:${TRAVIS_BUILD_DIR}/zig-macos-x86_64-${ZIG_VERSION}
-
-        #- zig version
 
       script:
         - zig build
@@ -83,6 +89,7 @@ before_install:
 
 before_script:
   - export FULL_VERSION=${VXT_VERSION}.${TRAVIS_BUILD_ID}
+
   #- go generate ./...
   #- cd bios/pcxtbios/build && go run build.go && cd ${TRAVIS_BUILD_DIR}
   #- go test -race -coverprofile coverage.txt -covermode atomic ./...
