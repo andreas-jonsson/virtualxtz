@@ -24,6 +24,7 @@ pub fn build(b: *Builder) void {
     const mode = b.standardReleaseOptions();
     const exe = b.addExecutable("virtualxt", "src/main.zig");
     exe.setBuildMode(mode);
+    exe.setOutputDir(".");
 
     const windows = b.option(bool, "windows", "Create Windows build") orelse false;
     if (windows) {
