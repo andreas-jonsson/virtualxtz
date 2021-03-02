@@ -5,7 +5,7 @@ matrix:
 
     - name: Linux
       os: linux
-      dist: focal
+      #dist: focal
 
       addons:
         apt:
@@ -18,17 +18,15 @@ matrix:
         - curl -L -o butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default && unzip butler.zip
         - curl -L -o zig.tar.xz https://ziglang.org/download/${ZIG_VERSION}/zig-linux-x86_64-${ZIG_VERSION}.tar.xz && tar -xf zig.tar.xz
 
-        - export PATH=${TRAVIS_BUILD_DIR}/zig-linux-x86_64-${ZIG_VERSION}
-
       script:
-        - zig build
+        - ${TRAVIS_BUILD_DIR}/zig-linux-x86_64-${ZIG_VERSION}/zig build
         #- ./tools/package/itch/package.linux.sh
 
     ################ OSX Build ################
 
     - name: OSX
       os: osx
-      osx_image: xcode12
+      #osx_image: xcode12
 
       addons:
         homebrew:
@@ -38,10 +36,11 @@ matrix:
 
       install:
         - curl -L -o butler.zip https://broth.itch.ovh/butler/darwin-amd64/LATEST/archive/default && unzip butler.zip
+        - curl -L -o zig.tar.xz https://ziglang.org/download/${ZIG_VERSION}/zig-macos-x86_64-${ZIG_VERSION}.tar.xz && tar -xf zig.tar.xz
 
       script:
-        - go build -tags sdl,pcap,static -ldflags "-s -w"
-        - ./tools/package/itch/package.osx.sh
+        - ${TRAVIS_BUILD_DIR}/zig-linux-x86_64-${ZIG_VERSION}/zig build
+        #- ./tools/package/itch/package.osx.sh
 
     ################ Windows Build ################
 
@@ -50,17 +49,12 @@ matrix:
 
       install:
         - curl -L -o butler.zip https://broth.itch.ovh/butler/windows-amd64/LATEST/archive/default && unzip butler.zip
-        - curl -L -o sdl.tar.gz https://www.libsdl.org/release/SDL2-devel-2.0.10-mingw.tar.gz && 7z x sdl.tar.gz && 7z x sdl.tar
-
-        - export C_INCLUDE_PATH=${TRAVIS_BUILD_DIR}/SDL2-2.0.10/x86_64-w64-mingw32/include
-        - export LIBRARY_PATH=${TRAVIS_BUILD_DIR}/SDL2-2.0.10/x86_64-w64-mingw32/lib
-
-        - go get github.com/akavel/rsrc
+        - curl -L -o sdl.tar.gz https://www.libsdl.org/release/SDL2-devel-${SDL2_WINDOWS_VERSION}-VC.zip && 7z x sdl.zip
+        - curl -L -o zig.zip https://ziglang.org/download/0.7.1/zig-windows-x86_64-0.7.1.zip && unzip zig.zip
 
       script:
-        - rsrc -ico=doc/icon/icon.ico -arch=amd64
-        - go build -tags sdl,pcap,static -ldflags "-s -w"
-        - ./tools/package/itch/package.bat
+        - ${TRAVIS_BUILD_DIR}/zig-windows-x86_64-${ZIG_VERSION}/zig build -Dwindows=true -Dsdl-path=${TRAVIS_BUILD_DIR}/SDL2-${SDL2_WINDOWS_VERSION}
+        #- ./tools/package/itch/package.bat
 
 ################ Common ################
 
@@ -68,6 +62,7 @@ language: generic
 
 env:
   - ZIG_VERSION=0.7.1
+  - SDL2_WINDOWS_VERSION=2.0.14
   - VXT_VERSION=0.6.1
 
 notifications:
