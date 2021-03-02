@@ -5,7 +5,7 @@ matrix:
 
     - name: Linux
       os: linux
-      #dist: focal
+      dist: focal
 
       addons:
         apt:
