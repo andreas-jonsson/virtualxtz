@@ -99,4 +99,4 @@ deploy:
   on:
     all_branches: true
     #condition: $TRAVIS_BRANCH =~ ^(edge|release)$ && $TRAVIS_OS_NAME != osx
-    condition: $TRAVIS_BRANCH == main && $TRAVIS_OS_NAME == linux
+    condition: $TRAVIS_BRANCH == main
