@@ -53,7 +53,7 @@ matrix:
       script:
         - zig build test
         - zig build
-        #- ./tools/package/itch/package.osx.sh
+        - ./tools/package/itch/package.osx.sh
 
     ################ Windows Build ################
 
@@ -71,7 +71,7 @@ matrix:
       script:
         - zig build test -Dwindows=true -Dsdl-path=${SDL_PATH}
         - zig build -Dwindows=true -Dsdl-path=${SDL_PATH}
-        #- ./tools/package/itch/package.bat
+        - ./tools/package/itch/package.bat
 
 ################ Common ################
 
