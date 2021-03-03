@@ -7,14 +7,14 @@ cp -r "$TRAVIS_BUILD_DIR/tools/package/appimage/virtualxt-appimage" $APP_DIR
 mkdir -p $APP_DIR/usr/lib/x86_64-linux-gnu $APP_DIR/bios $APP_DIR/boot
 
 # Required for network support.
-#cp /usr/lib/x86_64-linux-gnu/libpcap.so* $APP_DIR/usr/lib/x86_64-linux-gnu/
+cp /usr/lib/x86_64-linux-gnu/libpcap.so* $APP_DIR/usr/lib/x86_64-linux-gnu/
 
 cp zig-cache/bin/virtualxt $APP_DIR/
-#cp bios/vxtbios.bin $APP_DIR/bios/
-#cp bios/pcxtbios.bin $APP_DIR/bios/
-#cp bios/vxtx.bin $APP_DIR/bios/
+cp bios/vxtbios.bin $APP_DIR/bios/
+cp bios/pcxtbios.bin $APP_DIR/bios/
+cp bios/vxtx.bin $APP_DIR/bios/
 #cp boot/freedos_hd.img $APP_DIR/boot/
-#cp doc/icon/icon.png $APP_DIR/virtualxt-icon.png
+cp doc/icon/icon.png $APP_DIR/virtualxt-icon.png
 #cp -r doc/manual $APP_DIR
 
 curl -L -o apptool.AppImage https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage
